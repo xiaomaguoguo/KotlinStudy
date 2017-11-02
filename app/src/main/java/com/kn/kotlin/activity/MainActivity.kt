@@ -1,5 +1,6 @@
 package com.kn.kotlin.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     val TAG:String = MainActivity::class.java.simpleName
 
-    var string_array:Array<String> = arrayOf("for循环","类对象Obj")
+    var string_array:Array<String> = arrayOf("for循环","类对象Obj","页面跳转")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         when(id){
             0 -> forRecycle()
             1 -> kotlinObj()
+            2 -> openPage()
         }
     }
 
@@ -78,5 +80,14 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    /**
+     * 跳转页面
+     */
+    fun openPage(){
+        val intent = Intent()
+        intent.setClass(this,SecondActivity::class.java)
+        startActivity(intent)
     }
 }
