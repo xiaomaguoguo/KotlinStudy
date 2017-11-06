@@ -15,7 +15,13 @@ class AnkoLayoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initLayout()
+
+        //方式一
+//        initLayout()
+
+        //方式二
+        AnkoLayoutDSL().setContentView(this)
+
     }
 
     private fun initLayout() {
