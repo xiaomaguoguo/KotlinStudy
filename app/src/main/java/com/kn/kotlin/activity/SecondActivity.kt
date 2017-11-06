@@ -14,6 +14,10 @@ class SecondActivity : AppCompatActivity(),View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_activity)
+        val extra = intent.getStringExtra("extra")
+        if(extra != null){
+            tv.text = extra
+        }
     }
 
     override fun onClick(v: View?) {

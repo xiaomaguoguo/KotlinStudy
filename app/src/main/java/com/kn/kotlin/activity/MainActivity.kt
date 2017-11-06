@@ -2,13 +2,19 @@ package com.kn.kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.IntegerRes
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.kn.kotlin.R
+import com.kn.kotlin.`interface`.IService
+import com.kn.kotlin.`interface`.IServiceImpl
 import com.kn.kotlin.entity.Student
+import com.kn.kotlin.extend.BaseClass
+import com.kn.kotlin.extend.SubClass
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlin.properties.Delegates
 
 /**
  * Created by MaZhihua on 2017/11/2.
@@ -18,7 +24,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     val TAG:String = MainActivity::class.java.simpleName
 
-    var string_array:Array<String> = arrayOf("for循环","类对象Obj","页面跳转")
+    var string_array:Array<String> = arrayOf("for循环","类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList","接口/实现类","类继承","Object学习","Anko学习")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +51,21 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             0 -> forRecycle()
             1 -> kotlinObj()
             2 -> openPage()
+            3 -> threeComput()
+            4 -> Log.d(TAG,containReturnResult("KNothing").toString())
+            5 -> arrayList()
+            6 -> interfaceImpl()
+            7 -> classExtend()
+            8 -> objectStudy()
+            9 -> ankoLayout()
+            else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
     }
 
     /**
      * for循环
      */
-    fun forRecycle(){
+    private fun forRecycle(){
 
         // type 1
         for(i in 5 until 10){
@@ -73,21 +87,131 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     /**
      * 类对象s
      */
-    fun kotlinObj(){
+    private fun kotlinObj(){
         val student = Student("KNothing","哈佛",1.80F,100)
-        Log.d(TAG,"obj msg = $student")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        val copy2 = student.copy("KNFuck","家里蹲")
+        Log.d(TAG,"obj msg = ${student}")
+        Log.d(TAG,"obj2 msg = ${copy2}")
     }
 
     /**
      * 跳转页面
      */
-    fun openPage(){
+    private fun openPage(){
         val intent = Intent()
         intent.setClass(this,SecondActivity::class.java)
+        intent.putExtra("extra","这是传递过来的值")
         startActivity(intent)
+    }
+
+    /**
+     * 三目运算
+     */
+    private fun threeComput() {
+        val flag:Boolean = false
+        var result:String? = null
+        result = if (flag) "正确" else "错误"
+        Log.d(TAG,result!!)
+    }
+
+    /**
+     * 带参数带返回值函数测试
+     */
+    private fun containReturnResult(params:String): Boolean{
+        return if (params.startsWith("KN"))true else false
+    }
+
+    /**
+     * arrayList使用
+     */
+    private fun arrayList(){
+        val array:ArrayList<String> = arrayListOf<String>()
+        val array2 = arrayListOf<String>()
+        array.add("a")
+        array.add("b")
+        array2.add("c")
+        array2.add("d")
+
+        val mapOf = mapOf<String,Int>()
+        val mutableMapOf = mutableMapOf<String,Int>()
+        val map = hashMapOf<Int,String>()
+        map.put(0,"Zero")
+        map.put(1,"One")
+        map.put(2,"Two")
+
+        var multable = mutableListOf<String>()
+        multable.add("K")
+        multable.add("N")
+        multable.add("O")
+    }
+
+    /**
+     * 接口及实现类学习
+     */
+    private fun interfaceImpl(){
+        val service = IServiceImpl("KNohting",1.80f)
+        service.methodOne()
+        service.methodTwo()
+    }
+
+    /**
+     * 类继承学习
+     */
+    private fun classExtend(){
+        var baseClass = SubClass()
+        baseClass.baseMethodOne("Fuck")
+        baseClass.baseMethodTwo(1.90F)
+        baseClass.subMethodOne(28)
+    }
+
+    /**
+     * When的高级用法
+     */
+    private fun hasPrefix(x: Any) = when(x) {
+        is String -> x.startsWith("prefix")
+        else -> false
+    }
+
+    private fun labelUsed(){
+        loop@ for (i in 1..100) {
+            for (j in 1..100) {
+                if (1 > 0) break@loop
+            }
+        }
+    }
+
+    sealed class FuckSecirity(){
+
+    }
+
+    inner class InnerClass(){
+        val a = TAG // inner标识符可以让内部类访问外部类成员
+    }
+
+    var name: String by Delegates.observable("<no name>") {
+        prop, old, new ->
+        println("$old -> $new")
+    }
+
+    var kkk :String by Delegates.observable(""){
+        kkkk,old,new -> { println("RIIRIIR")}
+    }
+
+    /**
+     * Object学习,即：单例
+     */
+    private fun objectStudy(){
+        Class.forName("SingleInstance")
+    }
+
+    /**
+     * Anko测试
+     */
+    private fun ankoLayout(){
+        startActivity(Intent(this,AnkoLayoutActivity::class.java))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
