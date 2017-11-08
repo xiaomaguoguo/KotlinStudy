@@ -1,5 +1,6 @@
 package com.kn.kotlin.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IntegerRes
@@ -14,6 +15,7 @@ import com.kn.kotlin.entity.Student
 import com.kn.kotlin.extend.BaseClass
 import com.kn.kotlin.extend.SubClass
 import kotlinx.android.synthetic.main.main_activity.*
+import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 /**
@@ -24,7 +26,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     val TAG:String = MainActivity::class.java.simpleName
 
-    var string_array:Array<String> = arrayOf("for循环","类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList","接口/实现类","类继承","Object学习","Anko学习")
+    var string_array:Array<String> = arrayOf("for循环"
+            ,"类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList"
+            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             7 -> classExtend()
             8 -> objectStudy()
             9 -> ankoLayout()
+            10 -> writeGlobalSP()
             else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
     }
@@ -209,6 +214,18 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
      */
     private fun ankoLayout(){
         startActivity(Intent(this,AnkoLayoutActivity::class.java))
+    }
+
+    /**
+     * 写Global全局SP值，在另一个App中读取，看能不能读取到
+     */
+    private fun writeGlobalSP(){
+        val prefs = getSharedPreferences("FuckSP", Context.MODE_MULTI_PROCESS)
+        val spEdit = prefs.edit()
+        spEdit.putString("Value","HaHaHaHa")
+        spEdit.commit()
+        spEdit.apply()
+        toast("SP写入成功")
     }
 
     override fun onDestroy() {
