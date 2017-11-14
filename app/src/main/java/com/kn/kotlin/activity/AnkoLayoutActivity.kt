@@ -25,7 +25,7 @@ class AnkoLayoutActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-        var body = linearLayout {
+        linearLayout {
             lparams{
                 width = matchParent
                 height = matchParent
@@ -35,7 +35,7 @@ class AnkoLayoutActivity : AppCompatActivity() {
             }
 
 
-            var editText = editText {
+            editText {
                 lparams {
                     width = matchParent
                     height = dip(50)
@@ -44,7 +44,7 @@ class AnkoLayoutActivity : AppCompatActivity() {
                 }
             }
 
-            var editText2 = editText {
+            editText {
                 lparams {
                     width = matchParent
                     height = dip(50)
@@ -52,7 +52,7 @@ class AnkoLayoutActivity : AppCompatActivity() {
                 }
             }
 
-            var loginBtn = button("Fucking") {
+            button("Fucking") {
                 lparams {
                     width = matchParent
                     height = dip(60)
