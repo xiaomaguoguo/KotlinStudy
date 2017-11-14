@@ -77,11 +77,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
     private fun ankoLogger() {
         debug { "Fucking" }
         info { "Fuck info" }
-        val kkk = doAsync {
-
-        }
-
-
     }
 
     private fun weakReference(){
@@ -257,19 +252,18 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
         val uiContext = UI
         val bgContext = CommonPool
 
-
         //注：当通过 async 来启动父协程时，将会忽略掉任何异常
         val job = launch(uiContext) {
 //            view.showLoading() // ui thread
             val deferred = async(bgContext) {
-                delay(500)
+                delay(5,TimeUnit.SECONDS)
+                debug { "这是5s后打印出来的日志,模拟耗时操作" }
             }
-            val result = withTimeoutOrNull(3,TimeUnit.SECONDS){
-                deferred.await()
-            }
+            val result = withTimeoutOrNull(3,TimeUnit.SECONDS){ deferred.await() }
+            debug { debug { "此得已经获取到结果啦 $result " } }
 //            view.showData(result) // ui thread
         }
-        val future = doAsync {  }
+//        val future = doAsync {  }
     }
 
     override fun onDestroy() {
