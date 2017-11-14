@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 import kotlinx.coroutines.experimental.android.UI
 import org.w3c.dom.Text
+import kotlin.system.measureNanoTime
+import kotlin.system.measureTimeMillis
 
 /**
  * Created by MaZhihua on 2017/11/2.
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
     var string_array:Array<String> = arrayOf("for循环"
             ,"类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList"
-            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习")
+            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习","测试代码执行时间")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
             10 -> writeGlobalSP()
             11 -> ankoLogger()
             12 -> kotlinCoroutine()
+            13 -> measureTime();
             else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
     }
@@ -252,9 +255,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
         val uiContext = UI
         val bgContext = CommonPool
+//        Unconfined
 
         //注：当通过 async 来启动父协程时，将会忽略掉任何异常
-        val job = launch(uiContext) {
+        val job = launch(uiContext /**Unconfined、uiContext、bgContext 分别表示主线程、主线程、后台线程*/) {
 //            view.showLoading() // ui thread
             val deferred = async(bgContext) {
                 delay(5,TimeUnit.SECONDS)
@@ -278,6 +282,20 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
 //        runBlocking {  }
 
+
+
+    }
+
+    /**
+     * 测试代码执行时间
+     */
+    private  fun measureTime(){
+        val time = measureTimeMillis {
+//            method one
+//            method two
+        }
+//        measureNanoTime {  }
+        println("time = $time")
     }
 
     override fun onDestroy() {
