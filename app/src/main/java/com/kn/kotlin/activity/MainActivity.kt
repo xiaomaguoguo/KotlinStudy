@@ -15,20 +15,25 @@ import com.kn.kotlin.entity.Student
 import com.kn.kotlin.extend.BaseClass
 import com.kn.kotlin.extend.SubClass
 import kotlinx.android.synthetic.main.main_activity.*
-import org.jetbrains.anko.toast
+import kotlinx.coroutines.experimental.*
+import org.jetbrains.anko.*
+import java.sql.Ref
+import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
+import kotlinx.coroutines.experimental.android.UI
+import org.w3c.dom.Text
 
 /**
  * Created by MaZhihua on 2017/11/2.
  * Kotlin学习主页面
  */
-class MainActivity : AppCompatActivity(),View.OnClickListener {
+class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
     val TAG:String = MainActivity::class.java.simpleName
 
     var string_array:Array<String> = arrayOf("for循环"
             ,"类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList"
-            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP")
+            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +68,24 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             8 -> objectStudy()
             9 -> ankoLayout()
             10 -> writeGlobalSP()
+            11 -> ankoLogger()
+            12 -> kotlinCoroutine()
             else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
+    }
+
+    private fun ankoLogger() {
+        debug { "Fucking" }
+        info { "Fuck info" }
+        val kkk = doAsync {
+
+        }
+
+
+    }
+
+    private fun weakReference(){
+//        val ref: Ref<MainActivity> = this.asReference()
     }
 
     /**
@@ -226,6 +247,29 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         spEdit.commit()
         spEdit.apply()
         toast("SP写入成功")
+    }
+
+    /**
+     * Kotlin协程
+     */
+    private fun kotlinCoroutine(){
+
+        val uiContext = UI
+        val bgContext = CommonPool
+
+
+        //注：当通过 async 来启动父协程时，将会忽略掉任何异常
+        val job = launch(uiContext) {
+//            view.showLoading() // ui thread
+            val deferred = async(bgContext) {
+                delay(500)
+            }
+            val result = withTimeoutOrNull(3,TimeUnit.SECONDS){
+                deferred.await()
+            }
+//            view.showData(result) // ui thread
+        }
+        val future = doAsync {  }
     }
 
     override fun onDestroy() {

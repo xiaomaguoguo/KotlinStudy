@@ -36,4 +36,9 @@ dependencies {
     compile "org.jetbrains.anko:anko-appcompat-v7:0.9.1"
     compile "org.jetbrains.anko:anko-design:0.9.1"
     compile "org.jetbrains.anko:anko-recyclerview-v7:0.9.1"
+
+    //协程
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.3"
+    //协程UI
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.3"
 }
