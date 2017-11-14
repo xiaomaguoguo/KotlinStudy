@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.kn.kotlin.R
 import com.kn.kotlin.`interface`.IService
 import com.kn.kotlin.`interface`.IServiceImpl
@@ -257,13 +258,26 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 //            view.showLoading() // ui thread
             val deferred = async(bgContext) {
                 delay(5,TimeUnit.SECONDS)
-                debug { "这是5s后打印出来的日志,模拟耗时操作" }
+                toast("这是5s后打印出来的日志,模拟耗时操作")
             }
-            val result = withTimeoutOrNull(3,TimeUnit.SECONDS){ deferred.await() }
-            debug { debug { "此得已经获取到结果啦 $result " } }
+            deferred.await()
+//            val result = withTimeoutOrNull(3,TimeUnit.SECONDS){ deferred.await() }
+            toast("此得已经获取到结果啦 ")
 //            view.showData(result) // ui thread
         }
 //        val future = doAsync {  }
+
+
+//        launch(bgContext) {
+//            delay(3000,TimeUnit.MILLISECONDS)
+//            println("Hello....")
+//        }
+//
+//        println("world ! ! ! ")
+//        Thread.sleep(5000L)
+
+//        runBlocking {  }
+
     }
 
     override fun onDestroy() {
