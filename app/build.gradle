@@ -31,11 +31,25 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    //anko
-    compile "org.jetbrains.anko:anko-sdk15:0.9.1" // So here it's 15 too
-    compile "org.jetbrains.anko:anko-appcompat-v7:0.9.1"
-    compile "org.jetbrains.anko:anko-design:0.9.1"
-    compile "org.jetbrains.anko:anko-recyclerview-v7:0.9.1"
+    //Anko
+//    compile "org.jetbrains.anko:anko-sdk15:0.9.1" // So here it's 15 too
+    compile "org.jetbrains.anko:anko-design:$anko_version"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+    compile "org.jetbrains.anko:anko:$anko_version"
+
+    // Anko Commons
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
+
+    // Anko Layouts
+    compile "org.jetbrains.anko:anko-sdk25:$anko_version" // sdk15, sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
+    // Coroutine listeners for Anko Layouts
+    compile "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
+
+    // Anko SQLite
+    compile "org.jetbrains.anko:anko-sqlite:$anko_version"
 
     //协程
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.3"

@@ -22,6 +22,7 @@ import java.sql.Ref
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 import kotlinx.coroutines.experimental.android.UI
+import org.jetbrains.anko.coroutines.experimental.asReference
 import org.w3c.dom.Text
 import kotlin.system.measureNanoTime
 import kotlin.system.measureTimeMillis
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
     var string_array:Array<String> = arrayOf("for循环"
             ,"类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList"
-            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习","测试代码执行时间")
+            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习","测试代码执行时间","快速调用","弱引用")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +75,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
             11 -> ankoLogger()
             12 -> kotlinCoroutine()
             13 -> measureTime();
+            14 -> quickInvoke();
+            15 -> weakReference();
             else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
     }
@@ -84,7 +87,17 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
     }
 
     private fun weakReference(){
-//        val ref: Ref<MainActivity> = this.asReference()
+        val ref = asReference()
+        startActivity<SecondActivity>("extra" to "This is first value")
+        startActivity(intentFor<SecondActivity>("extra" to "This is second value").singleTop())
+    }
+
+    private fun quickInvoke(){
+        makeCall("15210035012")
+        sendSMS("15210035012")
+        browse("www.baidu.com")
+        share("shareText","这是分享的主题")
+        email("mzh3344258@163.com","这是邮件主题")
     }
 
     /**
