@@ -3,6 +3,8 @@ package com.kn.kotlin.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.annotation.IntegerRes
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -90,6 +92,11 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
         val ref = asReference()
         startActivity<SecondActivity>("extra" to "This is first value")
         startActivity(intentFor<SecondActivity>("extra" to "This is second value").singleTop())
+        val handler  = object : Handler(){
+            override fun handleMessage(msg: Message?) {
+                super.handleMessage(msg)
+            }
+        }
     }
 
     private fun quickInvoke(){
