@@ -247,6 +247,25 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
      */
     private fun objectStudy(){
         Class.forName("SingleInstance")
+        FuckObject.Student.height // 可正常访问
+//        FuckObject.Companion.height
+//        Student.height // 不能正常访问
+//        Student.weight// 不能正常访问
+    }
+
+    class FuckObject{
+        //注：一个类只能有一个伴生对象
+        companion object Student{
+            val name = "KNothing"
+            val height = 2.0F
+            val weight = 190
+        }
+
+//        companion object Student2{
+//            val name = "KNothing"
+//            val height = 2.0F
+//            val weight = 190
+//        }
     }
 
     /**
