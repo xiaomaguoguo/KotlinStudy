@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 /**
  * Created by MaZhihua on 2017/11/6.
@@ -34,30 +35,21 @@ class AnkoLayoutActivity : AppCompatActivity() {
                 padding = dip(16)
             }
 
-
             editText {
-                lparams {
-                    width = matchParent
-                    height = dip(50)
-                    topMargin = dip(16)
-
-                }
+                width = matchParent
+                width = matchParent
+                height = dip(50)
             }
 
+
             editText {
-                lparams {
-                    width = matchParent
-                    height = dip(50)
-                    topMargin = dip(16)
-                }
+                width = matchParent
+                height = dip(50)
             }
 
             button("Fucking") {
-                lparams {
-                    width = matchParent
-                    height = dip(60)
-                    topMargin = dip(16)
-                }
+                width = matchParent
+                height = dip(60)
 
                 onClick {
                     toast("点击了按钮")
