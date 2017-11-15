@@ -20,10 +20,10 @@ import com.kn.kotlin.extend.SubClass
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.coroutines.experimental.*
 import org.jetbrains.anko.*
-import java.sql.Ref
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 import kotlinx.coroutines.experimental.android.UI
+import org.jetbrains.anko.coroutines.experimental.Ref
 import org.jetbrains.anko.coroutines.experimental.asReference
 import org.w3c.dom.Text
 import kotlin.system.measureNanoTime
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
     }
 
     private fun weakReference(){
-        val ref = asReference()
+        val ref: Ref<MainActivity> = this.asReference()
         startActivity<SecondActivity>("extra" to "This is first value")
         startActivity(intentFor<SecondActivity>("extra" to "This is second value").singleTop())
         val handler  = object : Handler(){
