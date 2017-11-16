@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 
     var string_array:Array<String> = arrayOf("for循环"
             ,"类对象Obj","页面跳转","三元运算","有返回值的函数","ArrayList"
-            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习","测试代码执行时间","快速调用","弱引用")
+            ,"接口/实现类","类继承","Object学习","Anko学习","写跨应用SP","AnkoLogger","协程学习","测试代码执行时间","快速调用","弱引用","闭包")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,11 +76,22 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
             10 -> writeGlobalSP()
             11 -> ankoLogger()
             12 -> kotlinCoroutine()
-            13 -> measureTime();
-            14 -> quickInvoke();
-            15 -> weakReference();
+            13 -> measureTime()
+            14 -> quickInvoke()
+            15 -> weakReference()
+            16 -> closePackage()
             else -> Log.d(TAG,"when 没有匹配到时走这里")
         }
+    }
+
+    /**
+     * 闭包学习
+     */
+    private fun closePackage() {
+        // 闭包：一个函数可以赋值给一个变量，再将这个变量以参数的形式传递到其他函数中,例如：
+        val print = fun(x:Any){ println(x)}
+        val unit = listOf<Int>(1,2,3).forEach(print)
+        debug { "$unit" }
     }
 
     private fun ankoLogger() {
