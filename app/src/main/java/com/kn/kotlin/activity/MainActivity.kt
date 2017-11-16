@@ -264,6 +264,31 @@ class MainActivity : AppCompatActivity(),View.OnClickListener,AnkoLogger {
 //        Student.weight// 不能正常访问
     }
 
+    class MyClass {
+        companion object Factory {
+            fun getInstance(): MyClass = MyClass()
+        }
+
+        object Factory2 {
+            fun getInstance(): MyClass = MyClass()
+        }
+
+        val name = "KNothing"
+    }
+
+    object Factory {
+        fun create(): MyClass = MyClass()
+        val name2 = "KNothing"
+    }
+
+    private fun objectkk(){
+        val clazz = MyClass.getInstance()
+        val clazz2 = MyClass.Factory2.getInstance()
+        Factory.create()
+//        clazz.name
+        Factory.name2
+    }
+
     class FuckObject{
         //注：一个类只能有一个伴生对象
         companion object Student{
